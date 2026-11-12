@@ -9,246 +9,257 @@
     <style>
         body {
             font-family: 'Noto Nastaliq Urdu', serif;
-            /* Vintage White Floral Base */
-            background-color: #F8F5F0; 
-            background-image: url('https://www.transparenttextures.com/patterns/floral-texture.png');
-            color: #4A0404; /* Deep Maroon text matching the new card */
+            background-color: #F8F4EC; /* Vintage Cream */
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            color: #5E1624; /* Vintage Maroon */
         }
 
-        /* ----- GATE ANIMATION (FIXED TOUCH) ----- */
-        .door-container {
+        /* ----- ENVELOPE & WAX SEAL ANIMATION ----- */
+        #envelope-wrapper {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 50;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            z-index: 100;
             display: flex;
-            perspective: 1200px;
-            pointer-events: none;
-        }
-
-        .door {
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(135deg, #ffffff 0%, #f4ede3 100%);
-            border: 2px solid #8B0000;
-            position: relative;
-            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 1.5s ease;
+            align-items: center; justify-content: center;
+            overflow: hidden;
             pointer-events: auto;
-            box-shadow: inset 0 0 30px rgba(139, 0, 0, 0.1);
         }
 
-        .door-left { transform-origin: left; border-right: 4px solid #8B0000; border-radius: 0 15px 15px 0; }
-        .door-right { transform-origin: right; border-left: 4px solid #8B0000; border-radius: 15px 0 0 15px; }
+        .flap {
+            position: absolute;
+            top: 0; width: 50%; height: 100%;
+            background-color: #F4EBE1;
+            background-image: url('https://www.transparenttextures.com/patterns/floral-texture.png');
+            transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: inset 0 0 50px rgba(94, 22, 36, 0.1);
+            z-index: 101;
+        }
+        
+        /* Elegant floral borders for the flaps */
+        .flap-left { 
+            left: 0; 
+            border-right: 3px solid #5E1624; 
+            transform-origin: left;
+        }
+        .flap-right { 
+            right: 0; 
+            border-left: 3px solid #5E1624; 
+            transform-origin: right;
+        }
 
-        .door-open .door-left { transform: rotateY(-105deg); opacity: 0; }
-        .door-open .door-right { transform: rotateY(105deg); opacity: 0; }
-        .door-open #door-lock { opacity: 0; transform: translate(-50%, -50%) scale(0.5); pointer-events: none; }
+        /* Ribbon across the center */
+        .ribbon {
+            position: absolute;
+            top: 50%; left: 0; width: 100%; height: 30px;
+            background: #E8D3C3;
+            transform: translateY(-50%);
+            z-index: 102;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: opacity 1s ease;
+        }
 
-        #door-lock {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 130px; height: 130px;
-            background: radial-gradient(circle, #8B0000 0%, #4A0404 100%);
-            border-radius: 50%; z-index: 60;
+        /* Wax Seal */
+        #wax-seal {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; height: 100px;
+            background: radial-gradient(circle, #8A2538 0%, #5E1624 100%);
+            border-radius: 50%;
+            z-index: 103;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: #fff; font-weight: bold; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            border: 3px dashed #F8F5F0;
-            pointer-events: auto;
-            animation: pulse-maroon 2s infinite;
+            color: #F8F4EC; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(94, 22, 36, 0.4), inset 0 0 10px rgba(255,255,255,0.2);
+            border: 2px solid #A43B4E;
+            transition: all 0.5s ease;
+            animation: gentle-pulse 2s infinite;
         }
-        #door-lock:active { transform: translate(-50%, -50%) scale(0.95); }
+        #wax-seal:hover { transform: translate(-50%, -50%) scale(1.05); }
+        
+        .seal-heart { font-family: sans-serif; font-size: 28px; margin-bottom: -5px; }
+        .seal-text { font-family: sans-serif; font-size: 10px; letter-spacing: 1px; margin-top: 5px; }
 
-        @keyframes pulse-maroon {
-            0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.6); }
-            70% { box-shadow: 0 0 0 20px rgba(139, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0); }
+        @keyframes gentle-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(138, 37, 56, 0.5); }
+            70% { box-shadow: 0 0 0 20px rgba(138, 37, 56, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(138, 37, 56, 0); }
         }
 
-        /* ----- MAIN CARD STYLING ----- */
-        .main-content {
+        /* Open State */
+        .envelope-open .flap-left { transform: translateX(-100%); }
+        .envelope-open .flap-right { transform: translateX(100%); }
+        .envelope-open #wax-seal, .envelope-open .ribbon { opacity: 0; transform: translate(-50%, -50%) scale(0); pointer-events: none; }
+
+        /* ----- MAIN CARD INSIDE ----- */
+        .card-container {
             min-height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            padding: 2rem 1rem;
+            padding: 3rem 1rem;
+            display: flex; justify-content: center;
         }
 
         .nikkah-card {
-            background-color: #FFFFFF;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            background-color: #FAF6F0;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            max-width: 45rem; width: 100%;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid #D4C4B7;
             position: relative;
-            border: 2px solid #8B0000;
-            max-width: 42rem; width: 100%;
-            padding: 3rem 1.5rem;
-            /* Inner border design */
-            outline: 2px dashed #8B0000;
-            outline-offset: -12px;
         }
 
-        /* Colors for New Theme */
-        .text-maroon { color: #8B0000; }
-        .text-dark { color: #2C2C2C; }
-        
-        .divider {
-            height: 2px;
-            background: linear-gradient(to right, transparent, #8B0000, transparent);
-            margin: 1.5rem auto; width: 60%; opacity: 0.5;
+        /* Vintage Inner Frame */
+        .nikkah-card::before {
+            content: ''; position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px dashed #A87C85;
+            pointer-events: none;
         }
 
-        /* Fixing the Layout for Mobile (No breaking) */
-        .names-grid {
-            display: grid;
-            grid-template-columns: 1fr; /* Stack on mobile by default */
-            gap: 1.5rem;
-            align-items: center;
-            text-align: center;
-            margin-top: 1rem;
-        }
-        @media (min-width: 768px) {
-            .names-grid { grid-template-columns: 1fr auto 1fr; } /* Row on desktop */
+        .divider-floral {
+            font-size: 1.5rem; color: #A87C85;
+            margin: 1.5rem 0; letter-spacing: 10px;
         }
 
-        .calligraphy-img {
-            /* Tints image to maroon to match theme */
-            mix-blend-mode: multiply; 
-            filter: sepia(1) hue-rotate(330deg) saturate(3) brightness(0.6);
-            width: 140px; height: 140px; margin: 0 auto;
+        /* Text Animations inside the card */
+        .fade-up {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
         }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        /* Naya Floating Animation text ke liye */
-        .fade-slide-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out;
+        .name-title {
+            font-size: 2.5rem; font-weight: bold;
+            color: #5E1624;
+            line-height: 1.4;
         }
-        .visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
+        @media (min-width: 768px) { .name-title { font-size: 3.5rem; } }
+
         .highlight-name {
-            color: #D4AF37; /* Gold color for your name */
-            font-size: 1.3rem;
-            font-weight: bold;
-            background: #4A0404;
-            padding: 0 10px;
-            border-radius: 5px;
-            display: inline-block;
+            background: #5E1624; color: #E8D3C3;
+            padding: 2px 12px; border-radius: 6px;
+            display: inline-block; font-size: 1.25rem; font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <!-- GATE OVERLAY -->
-    <div id="door-container" class="door-container">
-        <div class="door door-left"></div>
-        <div class="door door-right"></div>
-        <div id="door-lock" onclick="openDoors()">
-            <span class="text-xl mb-1 font-sans">﷽</span>
-            <span class="text-xs tracking-wider font-sans">TAP TO OPEN</span>
+    <!-- ENVELOPE WRAPPER -->
+    <div id="envelope-wrapper">
+        <div class="flap flap-left"></div>
+        <div class="flap flap-right"></div>
+        <div class="ribbon"></div>
+        <div id="wax-seal" onclick="openEnvelope()">
+            <div class="seal-heart">❤</div>
+            <div class="seal-text">TAP TO OPEN</div>
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-        <div class="nikkah-card text-center relative z-10" id="card-content">
+    <!-- MAIN NIKKAH CARD -->
+    <div class="card-container">
+        <div class="nikkah-card text-center relative z-10" id="main-content">
             
-            <div class="text-maroon text-2xl md:text-3xl mb-4 mt-6 font-bold fade-slide-up">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
-            <div class="text-maroon text-5xl md:text-6xl mb-6 font-bold fade-slide-up" style="line-height: 1.2;">نکاح</div>
+            <!-- Bismillah & Nikkah -->
+            <div class="fade-up">
+                <div class="text-xl md:text-2xl mb-4 font-bold tracking-wide">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+                <div class="text-5xl md:text-6xl font-bold mb-2">نکاح</div>
+                <div class="divider-floral">✧ ✦ ✧</div>
+            </div>
 
-            <!-- FIXED LAYOUT: Groom, Center Image & Bride -->
-            <div class="names-grid fade-slide-up">
-                <!-- Bride (Right side traditionally, but first in flow) -->
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-maroon mb-2">حنا پروین</h2>
-                    <p class="text-base text-dark">(بنتِ فیروز خان شیر خان، نصیر آباد)</p>
-                </div>
-
-                <!-- Center Calligraphy / Word -->
-                <div class="flex flex-col items-center justify-center">
-                    <img src="268885.jpg" alt="Wa Khalaqnakum Azwaja" class="calligraphy-img">
-                    <span class="border border-maroon rounded-full px-4 py-1 text-maroon mt-2">ہمراہ</span>
-                </div>
-
+            <!-- Groom & Bride Details (Clean Vertical Layout) -->
+            <div class="fade-up mb-8">
                 <!-- Groom -->
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-maroon mb-2">سید جمیل</h2>
-                    <p class="text-base text-dark">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
+                <div class="mb-4">
+                    <h2 class="name-title">سید جمیل</h2>
+                    <p class="text-lg md:text-xl text-gray-700 mt-1">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
+                </div>
+
+                <!-- With (ہمراہ) -->
+                <div class="my-4">
+                    <span class="border border-[#A87C85] rounded-full px-6 py-1 text-lg text-[#5E1624]">ہمراہ</span>
+                </div>
+
+                <!-- Bride -->
+                <div class="mt-4">
+                    <h2 class="name-title">حنا پروین</h2>
+                    <p class="text-lg md:text-xl text-gray-700 mt-1">(بنتِ فیروز خان شیر خان، نصیر آباد)</p>
                 </div>
             </div>
 
-            <div class="divider fade-slide-up"></div>
+            <div class="divider-floral fade-up">✧ ✦ ✧</div>
 
-            <!-- Program -->
-            <div class="mb-6 fade-slide-up">
-                <h3 class="text-2xl md:text-3xl text-maroon mb-4 font-bold">٭ پروگرام ٭</h3>
-                <p class="mb-2 text-lg md:text-xl"><span class="text-maroon font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
-                <p class="text-lg md:text-xl"><span class="text-maroon font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
+            <!-- Program Details -->
+            <div class="mb-8 fade-up">
+                <h3 class="text-2xl md:text-3xl font-bold mb-4">٭ پروگرام ٭</h3>
+                <p class="mb-2 text-lg md:text-xl"><span class="font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
+                <p class="text-lg md:text-xl"><span class="font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
             </div>
 
             <!-- Nikah Box -->
-            <div class="bg-[#8B0000] text-white rounded-lg py-2 px-4 inline-block mb-4 fade-slide-up">
-                <h3 class="text-xl md:text-2xl">عقد خوانی انشاء اللہ تعالیٰ</h3>
-            </div>
-            
-            <div class="mb-6 fade-slide-up">
-                <p class="mb-2 text-lg md:text-xl"><span class="text-maroon font-bold">شادی:</span> 23.11.2026 بروز پیر عقد خوانی صبح 11:00 بجے بعد طعام کھانا</p>
-                <p class="text-lg md:text-xl"><span class="text-maroon font-bold">پتہ:</span> خواجہ نگر ہال، نصیر آباد، ضلع جلگاؤں۔</p>
+            <div class="fade-up mb-8">
+                <div class="bg-[#5E1624] text-[#F8F4EC] rounded-md py-2 px-6 inline-block mb-4 shadow-md">
+                    <h3 class="text-xl md:text-2xl">عقد خوانی انشاء اللہ تعالیٰ</h3>
+                </div>
+                <p class="mb-2 text-lg md:text-xl"><span class="font-bold">شادی:</span> 23.11.2026 بروز پیر عقد خوانی صبح 11:00 بجے بعد طعام کھانا</p>
+                <p class="text-lg md:text-xl"><span class="font-bold">پتہ:</span> خواجہ نگر ہال، نصیر آباد، ضلع جلگاؤں۔</p>
             </div>
 
-            <div class="divider fade-slide-up"></div>
+            <div class="divider-floral fade-up">✧ ✦ ✧</div>
 
-            <!-- Hosts with Your Name Added -->
-            <div class="mb-8 fade-slide-up">
-                <h3 class="text-2xl md:text-3xl text-maroon mb-4 font-bold">٭ ادائیان ٭</h3>
-                <div class="text-lg md:text-xl text-dark leading-[2.2]">
-                    <p><span class="text-maroon font-bold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
+            <!-- Hosts & Inviter -->
+            <div class="mb-10 fade-up">
+                <h3 class="text-2xl md:text-3xl font-bold mb-4">٭ ادائیان ٭</h3>
+                <div class="text-lg md:text-xl text-gray-800 leading-[2.2]">
+                    <p><span class="font-bold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
                     <p>سید کلیم سید علیم</p>
                     <p>سید رفیق سید علیم ، سید سلیم سید علیم</p>
                     <p>سید اقبال سید کلیم</p>
-                    <!-- User's Name Inserted Here -->
-                    <p class="highlight-name mt-1 mb-1">سید احمد رضا سید رفیق</p>
-                    <p class="text-maroon font-bold mt-2 text-xl">جمیع سادات</p>
-                    <p class="text-maroon font-bold mt-1 text-2xl">تمام رشتہ دار اور دوست احباب</p>
+                    
+                    <!-- VIP Highlighted Name -->
+                    <div class="my-3">
+                        <span class="highlight-name">انجینئر سید احمد رضا سید رفیق</span>
+                    </div>
+
+                    <p class="font-bold mt-2 text-xl">جمیع سادات</p>
+                    <p class="font-bold mt-1 text-2xl">تمام رشتہ دار اور دوست احباب</p>
                 </div>
             </div>
 
-            <!-- Kids' Message -->
-            <div class="border border-maroon rounded-xl p-4 mb-8 bg-[#f4ede3] fade-slide-up">
-                <p class="text-maroon text-xl md:text-2xl mb-2 font-bold">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
-                <p class="text-lg md:text-xl text-dark">علی احمد، زینب علی، اسرا فاطمہ</p>
+            <!-- Kids' Message Box -->
+            <div class="border border-[#5E1624] border-opacity-40 rounded-xl p-5 mb-8 bg-[#F4EBE1] fade-up shadow-sm">
+                <p class="text-xl md:text-2xl mb-2 font-bold">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
+                <p class="text-lg md:text-xl text-gray-800">علی احمد، زینب علی، اسرا فاطمہ</p>
             </div>
 
-            <!-- Contacts -->
-            <div class="text-base md:text-lg text-dark tracking-widest mt-4 pt-4 border-t border-maroon border-opacity-30 fade-slide-up">
-                9689807275 , 9922128100 , 9561881313
+            <!-- Footer Contacts -->
+            <div class="text-base md:text-lg tracking-widest mt-6 pt-4 border-t border-[#A87C85] border-opacity-50 fade-up font-sans font-semibold">
+                9689807275 | 9922128100 | 9561881313
             </div>
 
         </div>
     </div>
 
-    <!-- SCRIPT FOR ANIMATIONS -->
+    <!-- JAVASCRIPT FOR ANIMATION -->
     <script>
-        function openDoors() {
-            var container = document.getElementById('door-container');
-            container.classList.add('door-open');
+        function openEnvelope() {
+            const wrapper = document.getElementById('envelope-wrapper');
+            // Envelope kholne ki class add karein
+            wrapper.classList.add('envelope-open');
             
-            // Trigger text floating animation after doors open
-            setTimeout(function() {
-                container.style.display = 'none';
+            // Envelope animation complete hone ke baad usko hide karna
+            setTimeout(() => {
+                wrapper.style.display = 'none';
                 
-                // Add visible class to all fade-slide-up elements sequentially
-                var elements = document.querySelectorAll('.fade-slide-up');
-                elements.forEach((el, index) => {
+                // Card ke andar ke elements ko ek-ek karke upar lana (Fade up effect)
+                const fadeElements = document.querySelectorAll('.fade-up');
+                fadeElements.forEach((el, index) => {
                     setTimeout(() => {
                         el.classList.add('visible');
-                    }, index * 150); // 150ms delay between each element
+                    }, index * 200); // Har line 200ms ke gap se aayegi
                 });
-            }, 1000);
+            }, 1000); // 1 second envelope khulne ka time
         }
     </script>
 </body>
