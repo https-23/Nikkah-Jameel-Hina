@@ -119,21 +119,31 @@
             margin: 1.5rem 0; letter-spacing: 10px;
         }
 
+        /* Text Animations inside the card */
         .fade-up {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+            opacity: 0; 
+            transform: translateY(40px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
         }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .fade-up.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
 
         .name-title {
-            font-size: 2.5rem; font-weight: bold;
+            font-size: 3rem; font-weight: bold;
             color: #5E1624;
             line-height: 1.4;
         }
-        @media (min-width: 768px) { .name-title { font-size: 3.5rem; } }
+        @media (min-width: 768px) { .name-title { font-size: 4rem; } }
     </style>
 </head>
 <body>
+
+    <!-- HIDDEN AUDIO TAG (Add bg-music.mp3 in your github) -->
+    <audio id="wedding-audio" loop>
+        <source src="bg-music.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- ENVELOPE WRAPPER -->
     <div id="envelope-wrapper">
@@ -158,36 +168,35 @@
             </div>
 
             <!-- Groom & Bride Details -->
-            <div class="fade-up mb-8">
-                <!-- Groom -->
-                <div class="mb-4">
-                    <h2 class="name-title">سید جمیل</h2>
-                    <p class="text-lg md:text-xl text-gray-700 mt-1">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
-                </div>
+            
+            <!-- Groom -->
+            <div class="fade-up mb-4 mt-6">
+                <h2 class="name-title">سید جمیل</h2>
+                <p class="text-lg md:text-xl text-gray-700 mt-1">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
+            </div>
 
-                <!-- With (ہمراہ) -->
-                <div class="my-4">
-                    <span class="border border-[#A87C85] rounded-full px-6 py-1 text-lg text-[#5E1624]">ہمراہ</span>
-                </div>
+            <!-- With (ہمراہ) -->
+            <div class="fade-up my-6">
+                <span class="border border-[#A87C85] rounded-full px-6 py-1 text-lg text-[#5E1624]">ہمراہ</span>
+            </div>
 
-                <!-- Bride -->
-                <div class="mt-4">
-                    <h2 class="name-title">حنا پروین</h2>
-                    <p class="text-lg md:text-xl text-gray-700 mt-1">(بنتِ فیروز خان شیر خان، نصیر آباد)</p>
-                </div>
+            <!-- Bride -->
+            <div class="fade-up mb-8 mt-4">
+                <h2 class="name-title">حنا پروین</h2>
+                <p class="text-lg md:text-xl text-gray-700 mt-1">(بنتِ فیروز خان شیر خان، نصیر آباد)</p>
             </div>
 
             <div class="divider-floral fade-up">✧ ✦ ✧</div>
 
             <!-- Program Details -->
-            <div class="mb-8 fade-up">
+            <div class="mb-8 fade-up mt-8">
                 <h3 class="text-2xl md:text-3xl font-bold mb-4">٭ پروگرام ٭</h3>
                 <p class="mb-2 text-lg md:text-xl"><span class="font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
                 <p class="text-lg md:text-xl"><span class="font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
             </div>
 
             <!-- Nikah Box -->
-            <div class="fade-up mb-8">
+            <div class="fade-up mb-8 mt-8">
                 <div class="bg-[#5E1624] text-[#F8F4EC] rounded-md py-2 px-6 inline-block mb-4 shadow-md">
                     <h3 class="text-xl md:text-2xl">عقد خوانی انشاء اللہ تعالیٰ</h3>
                 </div>
@@ -198,7 +207,7 @@
             <div class="divider-floral fade-up">✧ ✦ ✧</div>
 
             <!-- Hosts & Inviter -->
-            <div class="mb-10 fade-up">
+            <div class="mb-10 fade-up mt-8">
                 <h3 class="text-2xl md:text-3xl font-bold mb-4">٭ ادائیان ٭</h3>
                 <div class="text-lg md:text-xl text-gray-800 leading-[2.2]">
                     <p><span class="font-bold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
@@ -206,14 +215,14 @@
                     <p>سید رفیق سید علیم ، سید سلیم سید علیم</p>
                     <p>سید اقبال سید کلیم</p>
                     <p>انجینئر سید احمد رضا</p>
-                    <p class="font-bold mt-2 text-xl">جمیع سادات</p>
-                    <p class="font-bold mt-1 text-2xl">تمام رشتہ دار اور دوست احباب</p>
+                    <p class="font-bold mt-3 text-xl text-[#5E1624]">جمیع سادات</p>
+                    <p class="font-bold mt-1 text-2xl text-[#5E1624]">تمام رشتہ دار اور دوست احباب</p>
                 </div>
             </div>
 
             <!-- Kids' Message Box -->
-            <div class="border border-[#5E1624] border-opacity-40 rounded-xl p-5 mb-8 bg-[#F4EBE1] fade-up shadow-sm">
-                <p class="text-xl md:text-2xl mb-2 font-bold">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
+            <div class="border border-[#5E1624] border-opacity-40 rounded-xl p-5 mb-8 bg-[#F4EBE1] fade-up shadow-sm mt-8">
+                <p class="text-xl md:text-2xl mb-2 font-bold text-[#5E1624]">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
                 <p class="text-lg md:text-xl text-gray-800">علی احمد، زینب علی، اسرا فاطمہ</p>
             </div>
 
@@ -225,12 +234,20 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT FOR ANIMATION -->
+    <!-- JAVASCRIPT FOR ANIMATION AND AUDIO -->
     <script>
         function openEnvelope() {
+            // Play Background Music
+            const audio = document.getElementById('wedding-audio');
+            if (audio) {
+                audio.play().catch(error => console.log("Audio playback failed:", error));
+            }
+
+            // Open Envelope
             const wrapper = document.getElementById('envelope-wrapper');
             wrapper.classList.add('envelope-open');
             
+            // Sequential Fade-in Elements
             setTimeout(() => {
                 wrapper.style.display = 'none';
                 
@@ -238,7 +255,7 @@
                 fadeElements.forEach((el, index) => {
                     setTimeout(() => {
                         el.classList.add('visible');
-                    }, index * 200); 
+                    }, index * 800); // Har element 0.8 seconds (800ms) ke gap par aayega
                 });
             }, 1000); 
         }
