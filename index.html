@@ -9,13 +9,16 @@
     <style>
         body {
             font-family: 'Noto Nastaliq Urdu', serif;
-            background-color: #f5f0e6;
+            /* Vintage White Floral Base */
+            background-color: #F8F5F0; 
+            background-image: url('https://www.transparenttextures.com/patterns/floral-texture.png');
+            color: #4A0404; /* Deep Maroon text matching the new card */
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
 
-        /* 3D Gate Animation Settings */
+        /* ----- GATE ANIMATION (FIXED TOUCH) ----- */
         .door-container {
             position: fixed;
             top: 0;
@@ -25,238 +28,227 @@
             z-index: 50;
             display: flex;
             perspective: 1200px;
-            pointer-events: none; /* Let clicks pass through when open */
+            pointer-events: none;
         }
 
         .door {
             width: 50%;
             height: 100%;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            border: 2px solid #D4AF37;
+            background: linear-gradient(135deg, #ffffff 0%, #f4ede3 100%);
+            border: 2px solid #8B0000;
             position: relative;
             transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 1.5s ease;
             pointer-events: auto;
-            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: inset 0 0 30px rgba(139, 0, 0, 0.1);
         }
 
-        .door-left {
-            transform-origin: left;
-            border-right: 4px solid #D4AF37;
-            border-radius: 0 10px 10px 0;
-        }
+        .door-left { transform-origin: left; border-right: 4px solid #8B0000; border-radius: 0 15px 15px 0; }
+        .door-right { transform-origin: right; border-left: 4px solid #8B0000; border-radius: 15px 0 0 15px; }
 
-        .door-right {
-            transform-origin: right;
-            border-left: 4px solid #D4AF37;
-            border-radius: 10px 0 0 10px;
-        }
+        .door-open .door-left { transform: rotateY(-105deg); opacity: 0; }
+        .door-open .door-right { transform: rotateY(105deg); opacity: 0; }
+        .door-open #door-lock { opacity: 0; transform: translate(-50%, -50%) scale(0.5); pointer-events: none; }
 
-        .door::before {
-            content: '';
-            position: absolute;
-            top: 20px; bottom: 20px;
-            left: 20px; right: 20px;
-            border: 2px dashed #D4AF37;
-            opacity: 0.6;
-        }
-
-        /* Open State Classes */
-        .door-open .door-left {
-            transform: rotateY(-105deg);
-            opacity: 0;
-        }
-        .door-open .door-right {
-            transform: rotateY(105deg);
-            opacity: 0;
-        }
-        .door-open #door-lock {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.5);
-            pointer-events: none;
-        }
-
-        /* Lock / Button Seal (Fixed for Mobile Touch) */
         #door-lock {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: radial-gradient(circle, #D4AF37 0%, #b58500 100%);
-            border-radius: 50%;
-            z-index: 60;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transition: all 0.5s ease;
-            border: 4px solid #fff;
-            animation: pulse 2s infinite;
-            pointer-events: auto; /* IMPORTANT FIX: Enables touch/click on mobile */
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 130px; height: 130px;
+            background: radial-gradient(circle, #8B0000 0%, #4A0404 100%);
+            border-radius: 50%; z-index: 60;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: #fff; font-weight: bold; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border: 3px dashed #F8F5F0;
+            pointer-events: auto;
+            animation: pulse-maroon 2s infinite;
         }
-        #door-lock:active {
-            transform: translate(-50%, -50%) scale(0.95);
+        #door-lock:active { transform: translate(-50%, -50%) scale(0.95); }
+
+        @keyframes pulse-maroon {
+            0% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0.6); }
+            70% { box-shadow: 0 0 0 20px rgba(139, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 0, 0, 0); }
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-        }
-
-        /* Main Card Inside */
+        /* ----- MAIN CARD STYLING ----- */
         .main-content {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             padding: 2rem 1rem;
-            background: url('https://www.transparenttextures.com/patterns/cream-paper.png'); 
         }
 
         .nikkah-card {
-            background-color: #FCFBF4;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            background-color: #FFFFFF;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
             position: relative;
-            border: 2px solid #D4AF37;
-            max-width: 48rem;
-            width: 100%;
-            padding: 3rem 2rem;
+            border: 2px solid #8B0000;
+            max-width: 42rem; width: 100%;
+            padding: 3rem 1.5rem;
+            /* Inner border design */
+            outline: 2px dashed #8B0000;
+            outline-offset: -12px;
         }
 
-        .nikkah-card::before {
-            content: '';
-            position: absolute;
-            top: 15px; left: 15px; right: 15px; bottom: 15px;
-            border: 1px solid #D4AF37;
-            border-radius: 120px 120px 10px 10px;
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        .text-gold { color: #b58500; }
-        .text-emerald { color: #0f4c3a; }
+        /* Colors for New Theme */
+        .text-maroon { color: #8B0000; }
+        .text-dark { color: #2C2C2C; }
         
         .divider {
             height: 2px;
-            background: linear-gradient(to right, transparent, #D4AF37, transparent);
-            margin: 2rem auto;
-            width: 70%;
-            opacity: 0.6;
+            background: linear-gradient(to right, transparent, #8B0000, transparent);
+            margin: 1.5rem auto; width: 60%; opacity: 0.5;
+        }
+
+        /* Fixing the Layout for Mobile (No breaking) */
+        .names-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Stack on mobile by default */
+            gap: 1.5rem;
+            align-items: center;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        @media (min-width: 768px) {
+            .names-grid { grid-template-columns: 1fr auto 1fr; } /* Row on desktop */
         }
 
         .calligraphy-img {
+            /* Tints image to maroon to match theme */
             mix-blend-mode: multiply; 
-            filter: invert(45%) sepia(65%) saturate(400%) hue-rotate(5deg) brightness(95%) contrast(90%);
+            filter: sepia(1) hue-rotate(330deg) saturate(3) brightness(0.6);
+            width: 140px; height: 140px; margin: 0 auto;
+        }
+
+        /* Naya Floating Animation text ke liye */
+        .fade-slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .highlight-name {
+            color: #D4AF37; /* Gold color for your name */
+            font-size: 1.3rem;
+            font-weight: bold;
+            background: #4A0404;
+            padding: 0 10px;
+            border-radius: 5px;
+            display: inline-block;
         }
     </style>
 </head>
 <body>
 
-    <!-- 3D Gates Overlay -->
+    <!-- GATE OVERLAY -->
     <div id="door-container" class="door-container">
         <div class="door door-left"></div>
         <div class="door door-right"></div>
         <div id="door-lock" onclick="openDoors()">
-            <span class="text-xl mb-1" style="font-family: Arial, sans-serif;">﷽</span>
-            <span class="text-xs tracking-wider" style="font-family: Arial, sans-serif;">TAP TO OPEN</span>
+            <span class="text-xl mb-1 font-sans">﷽</span>
+            <span class="text-xs tracking-wider font-sans">TAP TO OPEN</span>
         </div>
     </div>
 
-    <!-- Inside Card Content -->
+    <!-- MAIN CONTENT -->
     <div class="main-content">
-        <div class="nikkah-card text-center relative z-10">
+        <div class="nikkah-card text-center relative z-10" id="card-content">
             
-            <div class="text-gold text-3xl mb-8 mt-6 font-bold">بسم الله الرحمن الرحيم</div>
+            <div class="text-maroon text-2xl md:text-3xl mb-4 mt-6 font-bold fade-slide-up">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+            <div class="text-maroon text-5xl md:text-6xl mb-6 font-bold fade-slide-up" style="line-height: 1.2;">نکاح</div>
 
-            <!-- Groom, Center Image & Bride -->
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 relative z-10">
-                
+            <!-- FIXED LAYOUT: Groom, Center Image & Bride -->
+            <div class="names-grid fade-slide-up">
+                <!-- Bride (Right side traditionally, but first in flow) -->
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-maroon mb-2">حنا پروین</h2>
+                    <p class="text-base text-dark">(بنتِ فیروز خان شیر خان، نصیر آباد)</p>
+                </div>
+
+                <!-- Center Calligraphy / Word -->
+                <div class="flex flex-col items-center justify-center">
+                    <img src="268885.jpg" alt="Wa Khalaqnakum Azwaja" class="calligraphy-img">
+                    <span class="border border-maroon rounded-full px-4 py-1 text-maroon mt-2">ہمراہ</span>
+                </div>
+
                 <!-- Groom -->
-                <div class="flex-1 text-center md:text-right">
-                    <h2 class="text-4xl md:text-5xl font-bold text-emerald mb-4 leading-relaxed">سید جمیل</h2>
-                    <p class="text-lg text-gray-700">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
-                </div>
-
-                <!-- Center Calligraphy Image (268885.jpg) -->
-                <div class="w-40 h-40 md:w-48 md:h-48 flex-shrink-0 my-4 md:my-0">
-                    <img src="268885.jpg" alt="Wa Khalaqnakum Azwaja" class="w-full h-full object-contain calligraphy-img">
-                </div>
-
-                <!-- Bride -->
-                <div class="flex-1 text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl font-bold text-emerald mb-4 leading-relaxed">حنا پروین</h2>
-                    <p class="text-lg text-gray-700">(بنتِ فیروز خان شیر خان، نصیر آباد)</p>
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-maroon mb-2">سید جمیل</h2>
+                    <p class="text-base text-dark">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
                 </div>
             </div>
 
-            <div class="divider"></div>
+            <div class="divider fade-slide-up"></div>
 
             <!-- Program -->
-            <div class="mb-8">
-                <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ پروگرام ٭</h3>
-                <p class="mb-3 text-xl"><span class="text-emerald font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
-                <p class="text-xl"><span class="text-emerald font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
+            <div class="mb-6 fade-slide-up">
+                <h3 class="text-2xl md:text-3xl text-maroon mb-4 font-bold">٭ پروگرام ٭</h3>
+                <p class="mb-2 text-lg md:text-xl"><span class="text-maroon font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
+                <p class="text-lg md:text-xl"><span class="text-maroon font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
             </div>
 
-            <div class="divider"></div>
-
-            <!-- Nikah Details -->
-            <div class="mb-8">
-                <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ عقد خوانی انشاء اللہ تعالیٰ ٭</h3>
-                <p class="mb-3 text-xl"><span class="text-emerald font-bold">شادی:</span> 23.11.2026 بروز پیر عقد خوانی صبح 11:00 بجے بعد طعام کھانا</p>
-                <p class="text-xl"><span class="text-emerald font-bold">پتہ:</span> خواجہ نگر ہال، نصیر آباد، ضلع جلگاؤں۔</p>
+            <!-- Nikah Box -->
+            <div class="bg-[#8B0000] text-white rounded-lg py-2 px-4 inline-block mb-4 fade-slide-up">
+                <h3 class="text-xl md:text-2xl">عقد خوانی انشاء اللہ تعالیٰ</h3>
+            </div>
+            
+            <div class="mb-6 fade-slide-up">
+                <p class="mb-2 text-lg md:text-xl"><span class="text-maroon font-bold">شادی:</span> 23.11.2026 بروز پیر عقد خوانی صبح 11:00 بجے بعد طعام کھانا</p>
+                <p class="text-lg md:text-xl"><span class="text-maroon font-bold">پتہ:</span> خواجہ نگر ہال، نصیر آباد، ضلع جلگاؤں۔</p>
             </div>
 
-            <div class="divider"></div>
+            <div class="divider fade-slide-up"></div>
 
-            <!-- Inviter / Hosts -->
-            <div class="mb-10">
-                <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ ادائیان ٭</h3>
-                <div class="text-xl text-gray-800 leading-[2.5]">
-                    <p><span class="text-emerald font-bold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
+            <!-- Hosts with Your Name Added -->
+            <div class="mb-8 fade-slide-up">
+                <h3 class="text-2xl md:text-3xl text-maroon mb-4 font-bold">٭ ادائیان ٭</h3>
+                <div class="text-lg md:text-xl text-dark leading-[2.2]">
+                    <p><span class="text-maroon font-bold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
                     <p>سید کلیم سید علیم</p>
                     <p>سید رفیق سید علیم ، سید سلیم سید علیم</p>
                     <p>سید اقبال سید کلیم</p>
-                    <p>سید احمد رضا سید رفیق</p>
-                    <p class="text-emerald font-bold mt-3 text-2xl">جمیع سادات</p>
-                    <p class="text-gold font-bold mt-2 text-2xl">تمام رشتہ دار اور دوست احباب</p>
+                    <!-- User's Name Inserted Here -->
+                    <p class="highlight-name mt-1 mb-1">سید احمد رضا سید رفیق</p>
+                    <p class="text-maroon font-bold mt-2 text-xl">جمیع سادات</p>
+                    <p class="text-maroon font-bold mt-1 text-2xl">تمام رشتہ دار اور دوست احباب</p>
                 </div>
             </div>
 
-            <!-- Kids' Message (Elegant Box) -->
-            <div class="border border-dashed border-[#D4AF37] rounded-2xl p-6 mb-10 bg-white bg-opacity-50">
-                <p class="text-emerald text-2xl mb-4 font-bold">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
-                <p class="text-xl text-gray-700">علی احمد، زینب علی، اسرا فاطمہ</p>
+            <!-- Kids' Message -->
+            <div class="border border-maroon rounded-xl p-4 mb-8 bg-[#f4ede3] fade-slide-up">
+                <p class="text-maroon text-xl md:text-2xl mb-2 font-bold">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
+                <p class="text-lg md:text-xl text-dark">علی احمد، زینب علی، اسرا فاطمہ</p>
             </div>
 
-            <!-- Footer Contacts -->
-            <div class="text-lg md:text-xl text-gold tracking-widest mt-6 pt-6 border-t border-[#D4AF37] border-opacity-40 font-bold">
-                مو: 9689807275 ، 9922128100 ، 9561881313
+            <!-- Contacts -->
+            <div class="text-base md:text-lg text-dark tracking-widest mt-4 pt-4 border-t border-maroon border-opacity-30 fade-slide-up">
+                9689807275 , 9922128100 , 9561881313
             </div>
 
         </div>
     </div>
 
-    <!-- JavaScript For Button Click -->
+    <!-- SCRIPT FOR ANIMATIONS -->
     <script>
         function openDoors() {
             var container = document.getElementById('door-container');
             container.classList.add('door-open');
             
-            // Animation ke baad gate hide karna
+            // Trigger text floating animation after doors open
             setTimeout(function() {
                 container.style.display = 'none';
-            }, 1500);
+                
+                // Add visible class to all fade-slide-up elements sequentially
+                var elements = document.querySelectorAll('.fade-slide-up');
+                elements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('visible');
+                    }, index * 150); // 150ms delay between each element
+                });
+            }, 1000);
         }
     </script>
 </body>
