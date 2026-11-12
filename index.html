@@ -37,7 +37,6 @@
             z-index: 101;
         }
         
-        /* Elegant floral borders for the flaps */
         .flap-left { 
             left: 0; 
             border-right: 3px solid #5E1624; 
@@ -49,7 +48,6 @@
             transform-origin: right;
         }
 
-        /* Ribbon across the center */
         .ribbon {
             position: absolute;
             top: 50%; left: 0; width: 100%; height: 30px;
@@ -60,7 +58,6 @@
             transition: opacity 1s ease;
         }
 
-        /* Wax Seal */
         #wax-seal {
             position: absolute;
             top: 50%; left: 50%;
@@ -110,7 +107,6 @@
             position: relative;
         }
 
-        /* Vintage Inner Frame */
         .nikkah-card::before {
             content: ''; position: absolute;
             top: 15px; left: 15px; right: 15px; bottom: 15px;
@@ -123,7 +119,6 @@
             margin: 1.5rem 0; letter-spacing: 10px;
         }
 
-        /* Text Animations inside the card */
         .fade-up {
             opacity: 0; transform: translateY(40px);
             transition: opacity 1.2s ease-out, transform 1.2s ease-out;
@@ -136,12 +131,6 @@
             line-height: 1.4;
         }
         @media (min-width: 768px) { .name-title { font-size: 3.5rem; } }
-
-        .highlight-name {
-            background: #5E1624; color: #E8D3C3;
-            padding: 2px 12px; border-radius: 6px;
-            display: inline-block; font-size: 1.25rem; font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -168,7 +157,7 @@
                 <div class="divider-floral">✧ ✦ ✧</div>
             </div>
 
-            <!-- Groom & Bride Details (Clean Vertical Layout) -->
+            <!-- Groom & Bride Details -->
             <div class="fade-up mb-8">
                 <!-- Groom -->
                 <div class="mb-4">
@@ -216,12 +205,7 @@
                     <p>سید کلیم سید علیم</p>
                     <p>سید رفیق سید علیم ، سید سلیم سید علیم</p>
                     <p>سید اقبال سید کلیم</p>
-                    
-                    <!-- VIP Highlighted Name -->
-                    <div class="my-3">
-                        <span class="highlight-name">انجینئر سید احمد رضا سید رفیق</span>
-                    </div>
-
+                    <p>انجینئر سید احمد رضا</p>
                     <p class="font-bold mt-2 text-xl">جمیع سادات</p>
                     <p class="font-bold mt-1 text-2xl">تمام رشتہ دار اور دوست احباب</p>
                 </div>
@@ -245,21 +229,18 @@
     <script>
         function openEnvelope() {
             const wrapper = document.getElementById('envelope-wrapper');
-            // Envelope kholne ki class add karein
             wrapper.classList.add('envelope-open');
             
-            // Envelope animation complete hone ke baad usko hide karna
             setTimeout(() => {
                 wrapper.style.display = 'none';
                 
-                // Card ke andar ke elements ko ek-ek karke upar lana (Fade up effect)
                 const fadeElements = document.querySelectorAll('.fade-up');
                 fadeElements.forEach((el, index) => {
                     setTimeout(() => {
                         el.classList.add('visible');
-                    }, index * 200); // Har line 200ms ke gap se aayegi
+                    }, index * 200); 
                 });
-            }, 1000); // 1 second envelope khulne ka time
+            }, 1000); 
         }
     </script>
 </body>
