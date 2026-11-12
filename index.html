@@ -35,7 +35,7 @@
             border: 2px solid #D4AF37;
             position: relative;
             transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 1.5s ease;
-            pointer-events: auto; /* Catch clicks on doors */
+            pointer-events: auto;
             box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.2);
             display: flex;
             align-items: center;
@@ -54,7 +54,6 @@
             border-radius: 10px 0 0 10px;
         }
 
-        /* Golden Floral Motifs on Doors */
         .door::before {
             content: '';
             position: absolute;
@@ -64,7 +63,7 @@
             opacity: 0.6;
         }
 
-        /* Open State */
+        /* Open State Classes */
         .door-open .door-left {
             transform: rotateY(-105deg);
             opacity: 0;
@@ -75,11 +74,11 @@
         }
         .door-open #door-lock {
             opacity: 0;
-            transform: scale(0.5);
+            transform: translate(-50%, -50%) scale(0.5);
             pointer-events: none;
         }
 
-        /* Lock / Button Seal */
+        /* Lock / Button Seal (Fixed for Mobile Touch) */
         #door-lock {
             position: absolute;
             top: 50%;
@@ -101,9 +100,10 @@
             transition: all 0.5s ease;
             border: 4px solid #fff;
             animation: pulse 2s infinite;
+            pointer-events: auto; /* IMPORTANT FIX: Enables touch/click on mobile */
         }
-        #door-lock:hover {
-            transform: translate(-50%, -50%) scale(1.1);
+        #door-lock:active {
+            transform: translate(-50%, -50%) scale(0.95);
         }
 
         @keyframes pulse {
@@ -119,7 +119,7 @@
             align-items: center;
             justify-content: center;
             padding: 2rem 1rem;
-            background: url('https://www.transparenttextures.com/patterns/cream-paper.png'); /* Vintage texture */
+            background: url('https://www.transparenttextures.com/patterns/cream-paper.png'); 
         }
 
         .nikkah-card {
@@ -133,7 +133,6 @@
             padding: 3rem 2rem;
         }
 
-        /* Arch Design Inside */
         .nikkah-card::before {
             content: '';
             position: absolute;
@@ -179,9 +178,10 @@
             
             <div class="text-gold text-3xl mb-8 mt-6 font-bold">بسم الله الرحمن الرحيم</div>
 
-            <!-- Groom, Center Image & Bride (Reordered) -->
+            <!-- Groom, Center Image & Bride -->
             <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 relative z-10">
-                <!-- Groom (First) -->
+                
+                <!-- Groom -->
                 <div class="flex-1 text-center md:text-right">
                     <h2 class="text-4xl md:text-5xl font-bold text-emerald mb-4 leading-relaxed">سید جمیل</h2>
                     <p class="text-lg text-gray-700">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
@@ -192,7 +192,7 @@
                     <img src="268885.jpg" alt="Wa Khalaqnakum Azwaja" class="w-full h-full object-contain calligraphy-img">
                 </div>
 
-                <!-- Bride (Second) -->
+                <!-- Bride -->
                 <div class="flex-1 text-center md:text-left">
                     <h2 class="text-4xl md:text-5xl font-bold text-emerald mb-4 leading-relaxed">حنا پروین</h2>
                     <p class="text-lg text-gray-700">(بنتِ فیروز خان شیر خان، نصیر آباد)</p>
@@ -246,13 +246,15 @@
         </div>
     </div>
 
-    <!-- JavaScript for Door Animation -->
+    <!-- JavaScript For Button Click -->
     <script>
         function openDoors() {
-            document.getElementById('door-container').classList.add('door-open');
-            // Hide the door container entirely after animation finishes to prevent scrolling issues
-            setTimeout(() => {
-                document.getElementById('door-container').style.display = 'none';
+            var container = document.getElementById('door-container');
+            container.classList.add('door-open');
+            
+            // Animation ke baad gate hide karna
+            setTimeout(function() {
+                container.style.display = 'none';
             }, 1500);
         }
     </script>
