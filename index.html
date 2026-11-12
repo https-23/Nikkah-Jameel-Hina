@@ -3,122 +3,258 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation | Hina & Jameel</title>
+    <title>Nikkah Invitation | Jameel & Hina</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Nastaliq Urdu', serif;
-            /* Dark Green to Burgundy Maroon Gradient */
-            background: linear-gradient(135deg, #0a1f12 0%, #3a0303 100%);
-            color: #ffffff;
-            min-height: 100vh;
+            background-color: #f5f0e6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
-        /* Glassmorphism Effect */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+        /* 3D Gate Animation Settings */
+        .door-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 50;
+            display: flex;
+            perspective: 1200px;
+            pointer-events: none; /* Let clicks pass through when open */
         }
-        .text-gold { color: #D4AF37; }
-        .border-gold { border-color: #D4AF37; }
-        
-        /* Subtle Micro-animations */
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
+
+        .door {
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            border: 2px solid #D4AF37;
+            position: relative;
+            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 1.5s ease;
+            pointer-events: auto; /* Catch clicks on doors */
+            box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        @keyframes float {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-8px) scale(1.02); }
-            100% { transform: translateY(0px) scale(1); }
+
+        .door-left {
+            transform-origin: left;
+            border-right: 4px solid #D4AF37;
+            border-radius: 0 10px 10px 0;
         }
-        .fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
+
+        .door-right {
+            transform-origin: right;
+            border-left: 4px solid #D4AF37;
+            border-radius: 10px 0 0 10px;
+        }
+
+        /* Golden Floral Motifs on Doors */
+        .door::before {
+            content: '';
+            position: absolute;
+            top: 20px; bottom: 20px;
+            left: 20px; right: 20px;
+            border: 2px dashed #D4AF37;
+            opacity: 0.6;
+        }
+
+        /* Open State */
+        .door-open .door-left {
+            transform: rotateY(-105deg);
             opacity: 0;
-            transform: translateY(20px);
         }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
+        .door-open .door-right {
+            transform: rotateY(105deg);
+            opacity: 0;
         }
+        .door-open #door-lock {
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+        }
+
+        /* Lock / Button Seal */
+        #door-lock {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #D4AF37 0%, #b58500 100%);
+            border-radius: 50%;
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
+            border: 4px solid #fff;
+            animation: pulse 2s infinite;
+        }
+        #door-lock:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
+        /* Main Card Inside */
+        .main-content {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background: url('https://www.transparenttextures.com/patterns/cream-paper.png'); /* Vintage texture */
+        }
+
+        .nikkah-card {
+            background-color: #FCFBF4;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            position: relative;
+            border: 2px solid #D4AF37;
+            max-width: 48rem;
+            width: 100%;
+            padding: 3rem 2rem;
+        }
+
+        /* Arch Design Inside */
+        .nikkah-card::before {
+            content: '';
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid #D4AF37;
+            border-radius: 120px 120px 10px 10px;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .text-gold { color: #b58500; }
+        .text-emerald { color: #0f4c3a; }
         
-        /* Converts black calligraphy to glowing gold */
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #D4AF37, transparent);
+            margin: 2rem auto;
+            width: 70%;
+            opacity: 0.6;
+        }
+
         .calligraphy-img {
-            filter: invert(1) sepia(1) saturate(5) hue-rotate(10deg) brightness(1.2) drop-shadow(0 0 10px rgba(212,175,55,0.6));
+            mix-blend-mode: multiply; 
+            filter: invert(45%) sepia(65%) saturate(400%) hue-rotate(5deg) brightness(95%) contrast(90%);
         }
     </style>
 </head>
-<body class="flex items-center justify-center p-4 sm:p-8">
+<body>
 
-    <div class="glass-card max-w-3xl w-full p-8 md:p-12 rounded-3xl text-center relative overflow-hidden fade-in-up">
-        
-        <!-- Bismillah / Top -->
-        <div class="text-gold text-2xl mb-8 tracking-widest">جناب</div>
-
-        <!-- Bride, Center Image & Groom -->
-        <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12 relative z-10">
-            <!-- Bride -->
-            <div class="flex-1 text-center md:text-right">
-                <h2 class="text-4xl md:text-5xl font-bold text-gold mb-3 leading-relaxed">حنا پروین</h2>
-                <p class="text-base text-gray-200">(بنتِ فیروز خان شیر خان) نصیر آباد</p>
-            </div>
-
-            <!-- Center Image (PNG) -->
-            <div class="w-40 h-40 md:w-48 md:h-48 flex-shrink-0 animate-float">
-                <img src="268885.jpg" alt="Wa Khalaqnakum Azwaja" class="w-full h-full object-contain calligraphy-img">
-            </div>
-
-            <!-- Groom -->
-            <div class="flex-1 text-center md:text-left">
-                <h2 class="text-4xl md:text-5xl font-bold text-gold mb-3 leading-relaxed">سید جمیل</h2>
-                <p class="text-base text-gray-200">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
-            </div>
+    <!-- 3D Gates Overlay -->
+    <div id="door-container" class="door-container">
+        <div class="door door-left"></div>
+        <div class="door door-right"></div>
+        <div id="door-lock" onclick="openDoors()">
+            <span class="text-xl mb-1" style="font-family: Arial, sans-serif;">﷽</span>
+            <span class="text-xs tracking-wider" style="font-family: Arial, sans-serif;">TAP TO OPEN</span>
         </div>
-
-        <!-- Program -->
-        <div class="mb-10">
-            <h3 class="text-2xl md:text-3xl text-gold mb-6">٭ پروگرام ٭</h3>
-            <p class="mb-3 text-lg"><span class="text-gold font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
-            <p class="text-lg"><span class="text-gold font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
-        </div>
-
-        <hr class="border-gold opacity-30 w-2/3 mx-auto mb-10">
-
-        <!-- Nikah Details -->
-        <div class="mb-10">
-            <h3 class="text-2xl md:text-3xl text-gold mb-6">٭ عقد خوانی انشاء اللہ تعالیٰ ٭</h3>
-            <p class="mb-3 text-lg"><span class="text-gold font-bold">شادی:</span> 23.11.2026 بروز پیر عقد خوانی صبح 11:00 بجے بعد طعام کھانا</p>
-            <p class="text-lg"><span class="text-gold font-bold">پتہ:</span> خواجہ نگر ہال، نصیر آباد، ضلع جلگاؤں۔</p>
-        </div>
-
-        <hr class="border-gold opacity-30 w-2/3 mx-auto mb-10">
-
-        <!-- Inviter / Hosts -->
-        <div class="mb-12">
-            <h3 class="text-2xl md:text-3xl text-gold mb-6">٭ ادائیان ٭</h3>
-            <div class="text-lg text-gray-200 leading-[2.5]">
-                <p><span class="text-gold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
-                <p>سید کلیم سید علیم</p>
-                <p>سید رفیق سید علیم ، سید سلیم سید علیم</p>
-                <p>سید اقبال سید کلیم</p>
-                <p class="text-gold mt-2">جمیع سادات</p>
-                <p class="text-xl mt-2">تمام رشتہ دار اور دوست احباب</p>
-            </div>
-        </div>
-
-        <!-- Kids' Message -->
-        <div class="border border-gold border-opacity-40 rounded-xl p-6 mb-8 bg-black/20 hover:bg-black/30 transition-all duration-300">
-            <p class="text-gold text-xl mb-4">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
-            <p class="text-lg">علی احمد، زینب علی، اسرا فاطمہ</p>
-        </div>
-
-        <!-- Footer Contacts -->
-        <div class="text-base text-gold tracking-widest mt-8 pt-6 border-t border-gold border-opacity-20">
-            مو: 9689807275 ، 9922128100 ، 9561881313
-        </div>
-
     </div>
 
+    <!-- Inside Card Content -->
+    <div class="main-content">
+        <div class="nikkah-card text-center relative z-10">
+            
+            <div class="text-gold text-3xl mb-8 mt-6 font-bold">بسم الله الرحمن الرحيم</div>
+
+            <!-- Groom, Center Image & Bride (Reordered) -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 relative z-10">
+                <!-- Groom (First) -->
+                <div class="flex-1 text-center md:text-right">
+                    <h2 class="text-4xl md:text-5xl font-bold text-emerald mb-4 leading-relaxed">سید جمیل</h2>
+                    <p class="text-lg text-gray-700">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
+                </div>
+
+                <!-- Center Calligraphy Image (268885.jpg) -->
+                <div class="w-40 h-40 md:w-48 md:h-48 flex-shrink-0 my-4 md:my-0">
+                    <img src="268885.jpg" alt="Wa Khalaqnakum Azwaja" class="w-full h-full object-contain calligraphy-img">
+                </div>
+
+                <!-- Bride (Second) -->
+                <div class="flex-1 text-center md:text-left">
+                    <h2 class="text-4xl md:text-5xl font-bold text-emerald mb-4 leading-relaxed">حنا پروین</h2>
+                    <p class="text-lg text-gray-700">(بنتِ فیروز خان شیر خان، نصیر آباد)</p>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Program -->
+            <div class="mb-8">
+                <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ پروگرام ٭</h3>
+                <p class="mb-3 text-xl"><span class="text-emerald font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
+                <p class="text-xl"><span class="text-emerald font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Nikah Details -->
+            <div class="mb-8">
+                <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ عقد خوانی انشاء اللہ تعالیٰ ٭</h3>
+                <p class="mb-3 text-xl"><span class="text-emerald font-bold">شادی:</span> 23.11.2026 بروز پیر عقد خوانی صبح 11:00 بجے بعد طعام کھانا</p>
+                <p class="text-xl"><span class="text-emerald font-bold">پتہ:</span> خواجہ نگر ہال، نصیر آباد، ضلع جلگاؤں۔</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Inviter / Hosts -->
+            <div class="mb-10">
+                <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ ادائیان ٭</h3>
+                <div class="text-xl text-gray-800 leading-[2.5]">
+                    <p><span class="text-emerald font-bold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
+                    <p>سید کلیم سید علیم</p>
+                    <p>سید رفیق سید علیم ، سید سلیم سید علیم</p>
+                    <p>سید اقبال سید کلیم</p>
+                    <p class="text-emerald font-bold mt-3 text-2xl">جمیع سادات</p>
+                    <p class="text-gold font-bold mt-2 text-2xl">تمام رشتہ دار اور دوست احباب</p>
+                </div>
+            </div>
+
+            <!-- Kids' Message (Elegant Box) -->
+            <div class="border border-dashed border-[#D4AF37] rounded-2xl p-6 mb-10 bg-white bg-opacity-50">
+                <p class="text-emerald text-2xl mb-4 font-bold">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
+                <p class="text-xl text-gray-700">علی احمد، زینب علی، اسرا فاطمہ</p>
+            </div>
+
+            <!-- Footer Contacts -->
+            <div class="text-lg md:text-xl text-gold tracking-widest mt-6 pt-6 border-t border-[#D4AF37] border-opacity-40 font-bold">
+                مو: 9689807275 ، 9922128100 ، 9561881313
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript for Door Animation -->
+    <script>
+        function openDoors() {
+            document.getElementById('door-container').classList.add('door-open');
+            // Hide the door container entirely after animation finishes to prevent scrolling issues
+            setTimeout(() => {
+                document.getElementById('door-container').style.display = 'none';
+            }, 1500);
+        }
+    </script>
 </body>
 </html>
