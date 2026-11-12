@@ -3,118 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation | Hina & Jameel</title>
+    <title>Nikkah Invitation | Hina & Jameel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Nastaliq Urdu', serif;
-            /* Dark Green to Burgundy Maroon Gradient */
-            background: linear-gradient(135deg, #0a1f12 0%, #3a0303 100%);
-            color: #ffffff;
+            /* Rich Beige/Gold tinted background */
+            background: linear-gradient(135deg, #e6dace 0%, #c5b399 100%);
+            color: #093624; /* Deep Emerald Green Text */
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
         }
-        /* Glassmorphism Effect */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+        /* Nikkah Arch Card Style */
+        .nikkah-card {
+            background-color: #FCFBF4; /* Pure Ivory/Cream */
+            /* Arch shape for the top */
+            border-radius: 180px 180px 20px 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), inset 0 0 40px rgba(212, 175, 55, 0.05);
+            position: relative;
+            border: 2px solid #D4AF37;
         }
-        .text-gold { color: #D4AF37; }
-        .border-gold { border-color: #D4AF37; }
+
+        /* Inner Golden Border */
+        .nikkah-card::before {
+            content: '';
+            position: absolute;
+            top: 12px; left: 12px; right: 12px; bottom: 12px;
+            border: 1px solid #D4AF37;
+            border-radius: 170px 170px 12px 12px;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .text-gold { color: #B58500; } /* Rich Darker Gold for legibility */
+        .text-emerald { color: #093624; }
         
-        /* Subtle Micro-animations */
-        .animate-float {
-            animation: float 4s ease-in-out infinite;
+        /* Elegant Gradient Divider */
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #D4AF37, transparent);
+            margin: 2rem auto;
+            width: 70%;
+            opacity: 0.6;
         }
-        @keyframes float {
-            0% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-8px) scale(1.02); }
-            100% { transform: translateY(0px) scale(1); }
-        }
-        .fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Converts black calligraphy to glowing gold */
+
+        /* Jpeg Calligraphy Blending & Gold Tint */
         .calligraphy-img {
-            filter: invert(1) sepia(1) saturate(5) hue-rotate(10deg) brightness(1.2) drop-shadow(0 0 10px rgba(212,175,55,0.6));
+            /* Removes white background from JPEG */
+            mix-blend-mode: multiply; 
+            /* Tints the black text to a rich gold/bronze color */
+            filter: invert(45%) sepia(65%) saturate(400%) hue-rotate(5deg) brightness(95%) contrast(90%);
+        }
+
+        /* Subtle Fade In */
+        .fade-in {
+            animation: fadeIn 1.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body class="flex items-center justify-center p-4 sm:p-8">
+<body>
 
-    <div class="glass-card max-w-3xl w-full p-8 md:p-12 rounded-3xl text-center relative overflow-hidden fade-in-up">
+    <div class="nikkah-card max-w-3xl w-full p-8 md:p-14 text-center relative overflow-hidden fade-in z-10">
         
-        <!-- Bismillah / Top -->
-        <div class="text-gold text-2xl mb-8 tracking-widest">جناب</div>
+        <!-- Top Section -->
+        <div class="text-gold text-2xl mb-12 mt-4 md:mt-8 tracking-widest font-bold">جناب</div>
 
         <!-- Bride, Center Image & Groom -->
-        <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-12 relative z-10">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8 relative z-10">
             <!-- Bride -->
             <div class="flex-1 text-center md:text-right">
-                <h2 class="text-4xl md:text-5xl font-bold text-gold mb-3 leading-relaxed">حنا پروین</h2>
-                <p class="text-base text-gray-200">(بنتِ فیروز خان شیر خان) نصیر آباد</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-emerald mb-4 leading-relaxed">حنا پروین</h2>
+                <p class="text-lg text-gray-700">(بنتِ فیروز خان شیر خان) نصیر آباد</p>
             </div>
 
-            <!-- Center Image (PNG) -->
-            <div class="w-40 h-40 md:w-48 md:h-48 flex-shrink-0 animate-float">
+            <!-- Center Calligraphy Image (268885.jpg) -->
+            <div class="w-44 h-44 md:w-52 md:h-52 flex-shrink-0">
                 <img src="268885.jpg" alt="Wa Khalaqnakum Azwaja" class="w-full h-full object-contain calligraphy-img">
             </div>
 
             <!-- Groom -->
             <div class="flex-1 text-center md:text-left">
-                <h2 class="text-4xl md:text-5xl font-bold text-gold mb-3 leading-relaxed">سید جمیل</h2>
-                <p class="text-base text-gray-200">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
+                <h2 class="text-4xl md:text-5xl font-bold text-emerald mb-4 leading-relaxed">سید جمیل</h2>
+                <p class="text-lg text-gray-700">(ابنِ سید کلیم سید علیم، جلگاؤں)</p>
             </div>
         </div>
 
+        <div class="divider"></div>
+
         <!-- Program -->
-        <div class="mb-10">
-            <h3 class="text-2xl md:text-3xl text-gold mb-6">٭ پروگرام ٭</h3>
-            <p class="mb-3 text-lg"><span class="text-gold font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
-            <p class="text-lg"><span class="text-gold font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
+        <div class="mb-8">
+            <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ پروگرام ٭</h3>
+            <p class="mb-3 text-xl"><span class="text-emerald font-bold">طعام:</span> 22.11.2026 بروز اتوار بعد نمازِ مغرب</p>
+            <p class="text-xl"><span class="text-emerald font-bold">پتہ:</span> مغل گارڈن، عثمانیہ پارک، جلگاؤں۔</p>
         </div>
 
-        <hr class="border-gold opacity-30 w-2/3 mx-auto mb-10">
+        <div class="divider"></div>
 
         <!-- Nikah Details -->
-        <div class="mb-10">
-            <h3 class="text-2xl md:text-3xl text-gold mb-6">٭ عقد خوانی انشاء اللہ تعالیٰ ٭</h3>
-            <p class="mb-3 text-lg"><span class="text-gold font-bold">شادی:</span> 23.11.2026 بروز پیر عقد خوانی صبح 11:00 بجے بعد طعام کھانا</p>
-            <p class="text-lg"><span class="text-gold font-bold">پتہ:</span> خواجہ نگر ہال، نصیر آباد، ضلع جلگاؤں۔</p>
+        <div class="mb-8">
+            <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ عقد خوانی انشاء اللہ تعالیٰ ٭</h3>
+            <p class="mb-3 text-xl"><span class="text-emerald font-bold">شادی:</span> 23.11.2026 بروز پیر عقد خوانی صبح 11:00 بجے بعد طعام کھانا</p>
+            <p class="text-xl"><span class="text-emerald font-bold">پتہ:</span> خواجہ نگر ہال، نصیر آباد، ضلع جلگاؤں۔</p>
         </div>
 
-        <hr class="border-gold opacity-30 w-2/3 mx-auto mb-10">
+        <div class="divider"></div>
 
         <!-- Inviter / Hosts -->
-        <div class="mb-12">
-            <h3 class="text-2xl md:text-3xl text-gold mb-6">٭ ادائیان ٭</h3>
-            <div class="text-lg text-gray-200 leading-[2.5]">
-                <p><span class="text-gold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
+        <div class="mb-10">
+            <h3 class="text-2xl md:text-3xl text-gold mb-6 font-bold">٭ ادائیان ٭</h3>
+            <div class="text-xl text-gray-800 leading-[2.5]">
+                <p><span class="text-emerald font-bold">زیر سرپرستی:</span> حافظ و قاری سید محمد کیف رضوی</p>
                 <p>سید کلیم سید علیم</p>
                 <p>سید رفیق سید علیم ، سید سلیم سید علیم</p>
                 <p>سید اقبال سید کلیم</p>
-                <p class="text-gold mt-2">جمیع سادات</p>
-                <p class="text-xl mt-2">تمام رشتہ دار اور دوست احباب</p>
+                <p class="text-emerald font-bold mt-3 text-2xl">جمیع سادات</p>
+                <p class="text-gold font-bold mt-2 text-2xl">تمام رشتہ دار اور دوست احباب</p>
             </div>
         </div>
 
-        <!-- Kids' Message -->
-        <div class="border border-gold border-opacity-40 rounded-xl p-6 mb-8 bg-black/20 hover:bg-black/30 transition-all duration-300">
-            <p class="text-gold text-xl mb-4">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
-            <p class="text-lg">علی احمد، زینب علی، اسرا فاطمہ</p>
+        <!-- Kids' Message (Elegant Box) -->
+        <div class="border border-dashed border-[#D4AF37] rounded-2xl p-6 mb-10 bg-[#f8f5e6]">
+            <p class="text-emerald text-2xl mb-4 font-bold">میرے بھائی جان کی شادی میں ضرور آنا۔</p>
+            <p class="text-xl text-gray-700">علی احمد، زینب علی، اسرا فاطمہ</p>
         </div>
 
         <!-- Footer Contacts -->
-        <div class="text-base text-gold tracking-widest mt-8 pt-6 border-t border-gold border-opacity-20">
+        <div class="text-lg md:text-xl text-gold tracking-widest mt-6 pt-6 border-t border-[#D4AF37] border-opacity-40 font-bold">
             مو: 9689807275 ، 9922128100 ، 9561881313
         </div>
 
